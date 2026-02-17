@@ -1,28 +1,36 @@
 import sys
 input = sys.stdin.readline
 
-test_case = int(input())
 
-for test in range(test_case):
+t = int(input())
+
+for _ in range(t):
     n = int(input())
-    s = input()
+    s = input().strip()
 
-    ans = 10**10   #some Big number
+    ans = 8
 
     for i in range(n):
-        a = b = c = 0
+        if i + 1 < n and s[i] == 'a' and s[i + 1] == 'a':
+            ans = 2
+            break
 
-        for j in range(i, min(n, i + 7)):
-            if s[j] == 'a':
-                a += 1
-            elif s[j] == 'b':
-                b += 1
-            else:
-                c += 1
+        if i + 2 < n and s[i] == 'a' and s[i + 2] == 'a':
+            ans = min(ans, 3)
 
-            length = j - i + 1
+        if i + 3 < n and s[i] == 'a' and s[i + 3] == 'a' and s[i + 1] != s[i + 2]:
+            ans = min(ans, 4)
 
-            if length >= 2 and a > b and a > c:
-                ans = min(ans, length)
+        if (
+            i + 6 < n
+            and s[i] == 'a'
+            and s[i + 3] == 'a'
+            and s[i + 6] == 'a'
+            and s[i + 1] == s[i + 2]
+            and s[i + 4] == s[i + 5]
+            and s[i + 1] != s[i + 4]
+        ):
+            ans = min(ans, 7)
 
-    print(ans if ans != 10**10 else -1)
+    print(ans if ans < 8 else -1)
+
