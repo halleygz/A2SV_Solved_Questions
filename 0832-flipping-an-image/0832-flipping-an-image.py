@@ -1,14 +1,15 @@
 class Solution:
     def flipAndInvertImage(self, image: List[List[int]]) -> List[List[int]]:
         res = []
-        for i in image:
-            temp = []
-            for px in list(reversed(i)):
-                if px == 1:
-                    temp.append(0)
+
+        for row in image:
+            flipped = []
+            for px in row[::-1]:
+                if px == 0:
+                    flipped.append(1)
                 else:
-                    temp.append(1)
-            res.append(temp)
-            temp = []
+                    flipped.append(0)
+                
+            res.append(flipped)
+
         return res
-        
