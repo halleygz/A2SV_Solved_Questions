@@ -1,23 +1,10 @@
 class Solution:
     def createSortedArray(self, instructions: List[int]) -> int:
-        m = max(instructions)
-        c = [0] * (m + 1)
+        SList = SortedList()
+        ans = 0
+        for num in instructions:
+            ans += min(SList.bisect_left(num), len(SList) - SList.bisect_right(num))
+            ans %= (10**9 + 7)
+            SList.add(num)
 
-        def update(x):
-            while x <= m:
-                c[x] += 1
-                x += x & -x
-            return res
-
-        def get(x):
-            res = 0
-            while x > 0:
-                res += c[x]
-                x -= x & -x
-            return  res
-
-        res = 0 
-        for i, a in enumerate(instructions):
-            res += min(get(a - 1), i - get(a))
-            update(a)
-        return res % (10**9 + 7)
+        return ans
