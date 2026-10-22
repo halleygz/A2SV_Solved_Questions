@@ -1,20 +1,11 @@
 class Solution:
     def myPow(self, x: float, n: int) -> float:
-        if x == 0: return 0.0
-        if n == 0: return 1.0
-        if x == 1: return 1.0
-        if x == -1: return 1.0 if n % 2 == 0 else -1.0
+        def helper(x, n):
+            if x == 0: return 0
+            if n == 0: return 1
 
-        binForm = n
-        if n < 0:
-            x = 1 / x
-            binForm = -binForm
+            res = helper(x, n // 2)
+            res = res * res 
+            return res  * x  if n % 2 else res
 
-        ans = 1.0
-        while binForm > 0:
-            if binForm % 2 == 1:
-                ans *= x
-            x *= x
-            binForm //= 2
-
-        return ans
+        return helper(x, abs(n)) if n >= 0 else 1 / helper(x, abs(n))
